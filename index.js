@@ -1,6 +1,6 @@
-const fs = require('fs').promises;
 const express = require('express');
 const bodyParser = require('body-parser');
+const getTalker = require('./middleware/getTalker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,11 +13,7 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
-app.get('/talker', (_req, res) => {
-  fs.readFile('./alker.json')
-    .then((result) => res.status(200).json(JSON.parse(result)))
-    .catch((err) => res.status(404).json({ message: err.message }));
-});
+app.get('/talker', getTalker);
 
 app.listen(PORT, () => {
   console.log('Online');
