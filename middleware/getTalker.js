@@ -1,7 +1,7 @@
-const fs = require('fs/promises');
+const fs = require('fs');
 
-const getTalker = async (req, res) => {
-  const talker = await fs.readFile('./talker.json', 'utf8');
+const getTalker = (req, res) => {
+    const talker = fs.readFileSync('./talker.json', 'utf8');
 
   if (talker.length === 0) return res.status(200).send([]);
 
