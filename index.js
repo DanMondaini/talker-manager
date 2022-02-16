@@ -8,6 +8,17 @@ const {
   validateEmailMid,
   login,
 } = require('./middleware/login');
+const {
+  validateToken,
+  validateName,
+  validateAge,
+  talkWatchedAtAndRateNotEmpety,
+  validateWatchedAt,
+  validateRate,
+  registerTalk,
+} = require('./middleware/addTalker');
+
+const editTalker = require('./middleware/editTalker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,6 +36,24 @@ app.get('/talker', getTalker);
 app.get('/talker/:id', getTalkerById);
 
 app.post('/login', verifyIfLoginAndPasswordAreNotEmpety, validatePassword, validateEmailMid, login);
+
+app.post('/talker',
+  validateToken,
+  validateName,
+  validateAge,
+  talkWatchedAtAndRateNotEmpety,
+  validateWatchedAt,
+  validateRate,
+  registerTalk);
+
+  app.put('/talker/:id',
+  validateToken,
+  validateName,
+  validateAge,
+  talkWatchedAtAndRateNotEmpety,
+  validateWatchedAt,
+  validateRate,
+  editTalker);
 
 app.listen(PORT, () => {
   console.log('Online');
