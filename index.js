@@ -20,6 +20,8 @@ const {
 
 const editTalker = require('./middleware/editTalker');
 
+const deleteTalker = require('./middleware/deleteTalker');
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -55,6 +57,7 @@ app.post('/talker',
   validateRate,
   editTalker);
 
+  app.delete('/talker/:id', validateToken, deleteTalker);
 app.listen(PORT, () => {
   console.log('Online');
 });
